@@ -1,0 +1,116 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 10.627 ns
+From           : data
+To             : ps2_keyboard:inst6|state.00001001
+From Clock     : --
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 7.247 ns
+From           : debounce_clk:inst3|lpm_counter:lpm_counter_component|cntr_i2k:auto_generated|safe_q[0]
+To             : antinose
+From Clock     : CLK
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case tpd
+Slack          : N/A
+Required Time  : None
+Actual Time    : 3.116 ns
+From           : altera_internal_jtag~TDO
+To             : altera_reserved_tdo
+From Clock     : --
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : 1.792 ns
+From           : altera_internal_jtag
+To             : sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_ela_control:ela_control|sld_ela_basic_multi_level_trigger:\basic_multi_level_mbpm_trigger_gen:multi_level_mbpm|lpm_shiftreg:trigger_condition_deserialize|dffs[14]
+From Clock     : --
+To Clock       : altera_internal_jtag~TCKUTAP
+Failed Paths   : 0
+
+Type           : Clock Setup: 'CLK'
+Slack          : 0.312 ns
+Required Time  : 24.50 MHz ( period = 40.816 ns )
+Actual Time    : N/A
+From           : ps2_brain:inst|code_new
+To             : sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|acq_trigger_in_reg[1]
+From Clock     : altpll0:inst9|altpll:altpll_component|_clk0
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Clock Setup: 'altera_internal_jtag~TCKUTAP'
+Slack          : 5.797 ns
+Required Time  : 42.50 MHz ( period = 23.529 ns )
+Actual Time    : 83.79 MHz ( period = 11.934 ns )
+From           : sld_hub:auto_hub|irf_reg[1][3]
+To             : sld_hub:auto_hub|tdo
+From Clock     : altera_internal_jtag~TCKUTAP
+To Clock       : altera_internal_jtag~TCKUTAP
+Failed Paths   : 0
+
+Type           : Clock Setup: 'altpll0:inst9|altpll:altpll_component|_clk0'
+Slack          : 17.161 ns
+Required Time  : 42.47 MHz ( period = 23.547 ns )
+Actual Time    : 156.59 MHz ( period = 6.386 ns )
+From           : ps2_keyboard:inst6|state.00001001
+To             : ps2_keyboard:inst6|bitcounter.00001011
+From Clock     : altpll0:inst9|altpll:altpll_component|_clk0
+To Clock       : altpll0:inst9|altpll:altpll_component|_clk0
+Failed Paths   : 0
+
+Type           : Clock Hold: 'altpll0:inst9|altpll:altpll_component|_clk0'
+Slack          : 0.499 ns
+Required Time  : 42.47 MHz ( period = 23.547 ns )
+Actual Time    : N/A
+From           : lock:inst1|state_1.00011
+To             : lock:inst1|state_1.00011
+From Clock     : altpll0:inst9|altpll:altpll_component|_clk0
+To Clock       : altpll0:inst9|altpll:altpll_component|_clk0
+Failed Paths   : 0
+
+Type           : Clock Hold: 'CLK'
+Slack          : 0.499 ns
+Required Time  : 24.50 MHz ( period = 40.816 ns )
+Actual Time    : N/A
+From           : sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:is_buffer_wrapped
+To             : sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_buffer_manager:sld_buffer_manager_inst|\buffer_manager:is_buffer_wrapped
+From Clock     : CLK
+To Clock       : CLK
+Failed Paths   : 0
+
+Type           : Clock Hold: 'altera_internal_jtag~TCKUTAP'
+Slack          : 0.499 ns
+Required Time  : 42.50 MHz ( period = 23.529 ns )
+Actual Time    : N/A
+From           : sld_hub:auto_hub|sld_shadow_jsm:shadow_jsm|tms_cnt[0]
+To             : sld_hub:auto_hub|sld_shadow_jsm:shadow_jsm|tms_cnt[0]
+From Clock     : altera_internal_jtag~TCKUTAP
+To Clock       : altera_internal_jtag~TCKUTAP
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 0
+
+--------------------------------------------------------------------------------------
+

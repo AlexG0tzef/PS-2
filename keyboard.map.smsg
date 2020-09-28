@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at ps2_keyboard.v(66): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at debounce.v(22): always construct contains both blocking and non-blocking assignments
