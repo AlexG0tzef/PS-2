@@ -1,0 +1,164 @@
+GED
+
+	Undo Commands
+	     1.	Move
+	     2.	Move
+	     3.	Insert Node
+	     4.	Insert Node
+	     5.	Insert Node
+	     6.	Insert Node
+	     7.	Insert Symbol
+	     8.	Insert Bus
+	     9.	Insert Symbol
+	    10.	Move
+	    11.	Move
+	    12.	Move
+	    13.	Move
+	    14.	Move
+	    15.	Delete
+	    16.	Delete
+	    17.	Delete
+	    18.	Delete
+	    19.	Delete
+	    20.	Move
+	    21.	Move
+	    22.	Move
+	    23.	Resize
+	    24.	Resize
+	    25.	Resize
+	    26.	Move
+	    27.	Move
+	    28.	Update Symbol or Block
+	    29.	Resize
+	    30.	Update Symbol or Block
+	    31.	Move
+	    32.	Move
+	    33.	Move
+	    34.	Move
+	    35.	Move
+	    36.	Move
+	    37.	Resize
+	    38.	Resize
+	    39.	Delete
+	    40.	Delete
+	    41.	Resize
+	    42.	Resize
+	    43.	Delete
+	    44.	Delete
+	    45.	Delete
+	    46.	Delete
+	    47.	Delete
+	    48.	Insert Node
+	    49.	Insert Node
+	    50.	Delete
+	    51.	Delete
+	    52.	Delete
+	    53.	Delete
+	    54.	Delete
+	    55.	Delete
+	    56.	Delete
+	    57.	Resize
+	    58.	Resize
+	    59.	Delete
+	    60.	Resize
+	    61.	Resize
+	    62.	Insert Bus
+	    63.	Move
+	    64.	Move
+	    65.	Move
+	    66.	Delete
+	    67.	Resize
+	    68.	Delete
+	    69.	Move
+	    70.	Update Symbol or Block
+	    71.	Delete
+	    72.	Delete
+	    73.	Update Symbol or Block
+	    74.	Update Symbol or Block
+	    75.	Move
+	    76.	Move
+	    77.	Insert Node
+	    78.	Insert Node
+	    79.	Move
+	    80.	Move
+	    81.	Move
+	    82.	Move
+	    83.	Update Symbol or Block
+	    84.	Properties
+	    85.	Insert Node
+	    86.	Insert Node
+	    87.	Insert Bus
+	    88.	Move
+	    89.	Resize
+	    90.	Resize
+	    91.	Insert Node
+	    92.	Move
+	    93.	Move
+	    94.	Update Symbol or Block
+	    95.	Move
+	    96.	Resize
+	    97.	Resize
+	    98.	Insert Node
+	    99.	Move
+	   100.	Move
+
+
+WED
+
+	Undo Commands
+	     1.	Edit Waveform
+	     2.	Edit Waveform
+	     3.	Edit Waveform
+	     4.	Edit Waveform
+	     5.	Edit Waveform
+	     6.	Edit Waveform
+	     7.	Edit Waveform
+	     8.	Drop Node
+			 *** 
+	     9.	Delete Node, Bus or Waveform Divider
+	    10.	Insert Node or Bus
+	    11.	Edit Waveform
+	    12.	Paste Waveform Interval
+			 ***  ***  *** 
+	    13.	Edit Waveform
+	    14.	Edit Waveform
+	    15.	Edit Waveform
+	    16.	Edit Waveform
+	    17.	Edit Waveform
+	    18.	Delete Node, Bus or Waveform Divider
+	    19.	Insert Node or Bus
+	    20.	Edit Waveform
+	    21.	Drop Node
+			 *** 
+	    22.	Insert Node or Bus
+	    23.	Delete Node, Bus or Waveform Divider
+	    24.	Edit Waveform
+	    25.	Edit Waveform
+	    26.	Edit Waveform
+	    27.	Edit Waveform
+	    28.	Paste Waveform Interval
+			 ***  ***  *** 
+	    29.	Edit Waveform
+	    30.	Edit Waveform
+	    31.	End Time
+	    32.	End Time
+	    33.	Edit Waveform
+	    34.	Edit Waveform
+	    35.	Edit Waveform
+	    36.	Edit Waveform
+	    37.	Edit Waveform
+	    38.	Edit Waveform
+
+
+RPW
+
+	Undo Commands
+	     1.	||Compilation Report||Flow Summary
+
+
+RPW
+
+	Undo Commands
+	     1.	||Simulation Report||Simulator||Simulation Waveforms
+
+

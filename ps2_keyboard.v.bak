@@ -1,0 +1,507 @@
+module ps2_keyboard(
+	input clk,
+
+	input clk_L_300K,
+	
+	input write,
+    input [7:0] write_data,
+    
+	inout data,
+	inout clock, 
+	
+	output reg ps2_beasy,
+		
+	output reg read,
+	output reg [7:0] read_data
+	
+	);
+	
+
+ reg [2:0] result;
+ reg reg1;
+ reg reg2;
+ reg out_clk;
+ 
+ reg [7:0] bitcounter;
+ reg [7:0] state;
+ 
+ reg [9:0] counter_40;
+ reg counter_40_reset;
+  
+ reg [2:0] check_write;
+ 
+ reg data_out_enable;
+ reg clock_out_enable;
+ 
+ 
+ 
+ initial
+  begin
+   out_clk <= 0;
+   result <= 0;
+   reg1 <= 0;
+   reg2 <= 0;
+   
+   counter_40 <= 0;
+         
+   read <= 1;
+   read_data <= 0;
+
+   bitcounter <= 0;
+   state <= 0;
+   
+   check_write <= 0;
+   
+   data_out_enable <= 0;
+   clock_out_enable <= 0;
+  end
+ 
+// An open-drain buffer is similar to a tri-state buffer, but only has one
+// possible output (GND).  If the output is not enabled, the "output" is set
+// to high-impedence.
+ assign data = (data_out_enable ? 1'b0 : 1'bZ);
+ assign clock = (clock_out_enable ? 1'b0 : 1'bZ);
+ 
+ 
+ always@(posedge clk) 
+  begin
+//line clock noise filter 
+  reg1 <= reg2;
+  out_clk <= reg2 && !reg1;
+   
+  if((clock) & (clk_L_300K) & (!reg2)) result <= result + 1;
+   else if (clock) result <= result;
+  else result <= 0;
+   
+  if ((result >= 1) & (clock)) reg2 = 1;
+  else reg2 <= 0;
+  
+//couter  
+  if (counter_40_reset) counter_40 <= 0;
+   else if (clk_L_300K) counter_40 <= counter_40 + 1;
+  else counter_40 <= counter_40;
+  
+//main state machine
+	case(state)
+	   
+		0:  //init
+		 begin 
+	       counter_40_reset <= 1;	 
+	       
+	       clock_out_enable <= 0;
+           data_out_enable <= 0;
+	        
+	       check_write <= write;
+	       	       
+	       ps2_beasy <= 1'b0;
+	                
+		   read <= 0; 
+		   read_data <= read_data; 
+		   
+		   bitcounter <= 1; 
+           if (check_write == 1'b1) state <= 15;
+            else if (out_clk & (data == 1'b0)) state <= 9;
+	       else state <= 0; 
+	     end 
+//recieve message from KB
+		1:  //bit0
+		 begin
+		  read_data[0] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= 1'b1;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 2;
+		  state <= 9;
+		 end
+		2:  //bit1
+		 begin
+		  read_data[1] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 3;
+		  state <= 9;
+		 end
+		3:  //bit2
+		 begin
+		  read_data[2] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 4;
+		  state <= 9;
+		 end
+		4:  //bit3
+		 begin
+		  read_data[3] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 5;
+		  state <= 9;
+		 end
+		5:  //bit4
+		 begin
+		  read_data[4] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 6;
+		  state <= 9;
+		 end
+		6:  //bit5
+		 begin
+		  read_data[5] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 7;
+		  state <= 9;
+		 end
+		7:  //bit6
+		 begin
+		  read_data[6] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 8;
+		  state <= 9;
+		 end
+		8:  //bit7
+		 begin
+		  read_data[7] <= data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 10;
+		  state <= 9;
+		 end
+		9:  //wait for next bit
+		 begin
+		  read_data <= read_data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= bitcounter;
+		  if (!out_clk) state <= 9;
+		   else state <= bitcounter;
+		 end
+		10: //check parity
+		 begin
+		  read_data <= read_data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 11;
+		  if (data == !(^read_data)) state <= 9;
+		   else state <= 10;
+		 end
+		11: //check stop bit
+		 begin
+		  read_data <= read_data;
+		  read <= read;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= 14; 
+		  state <= 12;		 
+		 end 
+		12:
+		 begin
+		  read <= 1;
+		  read_data <= read_data;
+		  
+		  ps2_beasy <= ps2_beasy;
+	       
+	      clock_out_enable <= 0;
+          data_out_enable <= 0;
+		  
+		  bitcounter <= bitcounter;
+		  state <= 13;
+		 end
+		13:
+		 begin
+	      read <= 0;
+	      read_data <= read_data;
+		  
+		  ps2_beasy <= 1'b1;
+	      
+	      clock_out_enable <= 0;
+	      data_out_enable <= 0;
+	      
+	      bitcounter <= bitcounter;
+	      state <= 0;
+	     end
+			  
+        14://wait for next bit while sending byte
+         begin
+	   	  clock_out_enable <= 0;
+		  data_out_enable <= data_out_enable;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+		  bitcounter <= bitcounter;
+          if (!out_clk) state <= 14;
+		   else state <= bitcounter;
+		 end	 
+//send byte to KB 
+        15://wait  100 microseconds		 
+		 begin
+		  clock_out_enable <= 1;
+		  data_out_enable <= 0;
+		  
+		  ps2_beasy <= 1'b1;
+		  
+          check_write <= check_write;
+          
+		  counter_40_reset <= 0;
+		  
+		  bitcounter <= 16;
+		  
+          if (counter_40 >= 31) state <= 14;
+           else state <= 15;		 
+		 end
+		16: //start bit
+		 begin
+		  bitcounter <= 17;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+          
+		  data_out_enable <= 1;
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 29;	
+		 end		 
+		17: // send bit0
+		 begin
+	      bitcounter <= 18;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      	      
+		  data_out_enable <= !write_data[0];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end 
+	    18: // send bit1
+		 begin
+          bitcounter <= 19;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+          	      
+		  data_out_enable <= !write_data[1];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end 	
+	    19: // send bit2
+		 begin
+	      bitcounter <= 20;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      
+		  data_out_enable <= !write_data[2];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end  
+	    20: // send bit3
+		 begin
+	      bitcounter <= 21;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      
+		  data_out_enable <= !write_data[3];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end
+	    21: // send bit4
+		 begin
+	      bitcounter <= 22;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      
+		  data_out_enable <= !write_data[4];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end     
+	    22: // send bit5
+		 begin
+	      bitcounter <= 23;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      	      
+		  data_out_enable <= !write_data[5];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end 	
+	    23: // send bit6
+		 begin
+	      bitcounter <= 24;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      
+		  data_out_enable <= !write_data[6];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end  	
+	    24: // send bit7
+		 begin
+	      bitcounter <= 25;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      
+		  data_out_enable <= !write_data[7];
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end 
+	    25: // send parity bit
+		 begin
+	      bitcounter <= 26;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      	      
+		  data_out_enable <= (^write_data[7:0]);
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end  
+	    26: // send stop bit
+		 begin
+	      bitcounter <= 27;
+		  
+		  ps2_beasy <= ps2_beasy;
+		  
+          check_write <= check_write;
+	      	      
+		  data_out_enable <= 0;
+          clock_out_enable <= clock_out_enable;
+          
+		  state <= 28;
+	     end
+	    27:
+	     begin
+	      bitcounter <= 37;
+		  
+		  ps2_beasy <= ps2_beasy;
+	      
+	      check_write <= check_write;
+	      
+	      data_out_enable <= 0; 
+          clock_out_enable <= clock_out_enable;
+          
+          state <= 28;
+	     end 	
+	    37:
+	     begin
+	      bitcounter <= 0;
+	      data_out_enable <= 0;
+           clock_out_enable <= clock_out_enable;
+	       requested_action <= requested_action;
+           commands <= commands;
+	      if (data == 1'b0) state <= 28;
+	      else state <= 37;
+	     end 
+	     
+	    28://wait for clock = 1
+	     begin 
+		  clock_out_enable <= 0;
+		  data_out_enable <= data_out_enable;
+		  
+		  ps2_beasy <= ps2_beasy;
+		 	      
+	      bitcounter <= bitcounter;
+	      
+          if (!out_clk) state <= 28;
+		   else state <= 29;
+	     end
+	    29://wait for clock = 0
+	     begin
+	      clock_out_enable <= 0;
+	      data_out_enable <= data_out_enable;
+		  
+		  ps2_beasy <= ps2_beasy;
+	      
+	      bitcounter <= bitcounter;
+	      
+	      if (clock == 1'b0) state <= bitcounter;
+	       else state <= 29;
+	     end      
+	      
+
+	     
+	     
+		default:
+			state <= 0;
+	endcase	
+end
+endmodule
+	
